@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if edit_mode %}Atualizar{% else %}Recrutar{% endif %} Herói</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Esconde o input de arquivo padrão do Django que é feio */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Estilização do Campo de Upload como um Botão Cyberpunk */
+        .upload-container {
+            border: 1px dashed #00a2ff;
+            background: rgba(0, 162, 255, 0.05);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .upload-container:hover {
+            background: rgba(0, 162, 255, 0.15);
+            border-style: solid;
+        }
+
+        .upload-label {
+            cursor: pointer;
+            display: block;
+            color: #00a2ff;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+        }
+
+        #file-name-display {
+            display: block;
+            margin-top: 10px;
+            color: #fff;
+            font-size: 0.7rem;
+            font-family: sans-serif;
+        }
+
+        .preview-img {
+            max-width: 100px;
+            margin-top: 10px;
+            border: 1px solid #00a2ff;
+            display: none;
+        }
+    </style>
+</head>
+<body class="container">
+
+<header>
+    <h1>{% if edit_mode %}ATUALIZAR ARQUIVO{% else %}NOVO RECRUTA{% endif %}</h1>
+    <a href="{% url 'home' %}" class="btn">Cancelar</a>
+</header>
+
+<section class="ficha-personagem-detalhe">
+    <div class="form-container">
+        <p class="instrucao">Acesse o banco de dados e modifique as informações do meta-humano:</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="field-wrapper">
+                        <label>{{ field.label }}</label>
+
+                        {% if field.name == 'foto' %}
+                            <div class="upload-container" onclick="document.getElementById('{{ field.auto_id }}').click();">
+                                <label class="upload-label">
+                                    📁 CLIQUE PARA UPLOAD DE BIO-IMAGEM
+                                </label>
+                                {{ field }}
+                                <span id="file-name-display">Nenhuma imagem selecionada</span>
+                                <img id="output-preview" class="preview-img" />
+                            </div>
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+
+                        {% if field.help_text %}
+                            <small style="color: #888; display: block; margin-top: 5px;">{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <div class="error" style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px;">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button type="submit" class="btn btn-save" style="width: 100%; padding: 15px; background: #00a2ff; color: #000; font-weight: bold; border: none; cursor: pointer; font-family: 'Orbitron';">
+                    {% if edit_mode %}SALVAR ALTERAÇÕES{% else %}FINALIZAR REGISTRO{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    // Lógica para mostrar o nome do arquivo e uma prévia da imagem antes de salvar
+    const fileInput = document.querySelector('input[type="file"]');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const previewImg = document.getElementById('output-preview');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                fileNameDisplay.textContent = "ARQUIVO: " + file.name;
+
+                // Mostrar prévia da imagem
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'inline-block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
