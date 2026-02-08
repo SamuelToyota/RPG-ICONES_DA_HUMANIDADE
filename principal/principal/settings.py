@@ -26,9 +26,8 @@ SECRET_KEY = 'django-insecure-afr-mzs8*!*z7+01yma%eokp%t+5%^&d2&&7ivoex6(a4b%1a)
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rpg-icones-da-humanidade.onrender.com', 'localhost', '127.0.0.1', '*']
 
 
 
