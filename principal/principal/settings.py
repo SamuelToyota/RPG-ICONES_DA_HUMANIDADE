@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-afr-mzs8*!*z7+01yma%eokp%t+5%^&d2&&7ivoex6(a4b%1a)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -125,3 +129,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Isso aqui é o que faz o CSS e as fotos funcionarem no Render
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
