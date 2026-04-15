@@ -255,7 +255,7 @@
     </div>
 
     <div class="action-btns">
-        <a href="{% url 'home' %}" class="btn" style="border-color: #444; color: #888;">VOLTAR</a>
+        <a href="{% url 'character_list' %}" class="btn" style="border-color: #444; color: #888;">VOLTAR</a>
         <a href="{% url 'character_update' character.pk %}" class="btn btn-edit">MODIFICAR PROTOCOLO</a>
         <a href="{% url 'character_delete' character.pk %}" class="btn btn-del" onclick="return confirm('Deseja deletar?')">DELETAR</a>
     </div>

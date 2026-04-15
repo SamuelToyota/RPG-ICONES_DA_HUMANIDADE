@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Livro de Regras | Icons of Humanity</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .rules-wrapper {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .rules-panel {
+            background: rgba(20, 20, 25, 0.95);
+            border: 1px solid #333;
+            border-left: 4px solid var(--primary);
+            clip-path: polygon(0 0, 100% 0, 100% 97%, 97% 100%, 0 100%);
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.08);
+        }
+
+        .rules-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #2a2f38;
+            padding-bottom: 20px;
+        }
+
+        .rules-title h1 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .rules-title p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .rules-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 12px 24px;
+            background: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border: 1px solid var(--primary);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            transition: 0.3s all;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pdf-frame {
+            width: 100%;
+            height: 85vh;
+            border: 1px solid #2f3944;
+            background: #0d1117;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .pdf-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-frame {
+                height: 75vh;
+            }
+
+            .rules-title h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="container">
+
+<section class="rules-wrapper">
+    <div class="rules-panel">
+        <div class="rules-header">
+            <div class="rules-title">
+                <h1>LIVRO DE REGRAS</h1>
+                <p>Manual oficial do universo Icons of Humanity</p>
+            </div>
+
+            <div class="rules-actions">
+                <a href="{% url 'home' %}" class="btn-outline">INÍCIO</a>
+                <a href="/media/regras_rpg.pdf" target="_blank" class="btn">ABRIR EM NOVA ABA</a>
+            </div>
+        </div>
+
+        <div class="pdf-frame">
+            <iframe src="/media/regras_rpg.pdf"></iframe>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

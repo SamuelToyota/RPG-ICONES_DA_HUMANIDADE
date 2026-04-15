@@ -3,158 +3,281 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Protocolo Hero | Seleção</title>
+    <title>Icons of Humanity | Início</title>
     <link rel="stylesheet" href="{% static 'core/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            padding: 20px;
-        }
-
-        /* O design original com borda chanfrada azul */
-        .character-card {
-            background: #0a0c10;
-            border-left: 4px solid #00a2ff;
-            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%);
-            padding: 20px;
-            position: relative;
-            border: 1px solid #1a1d23;
-        }
-
-        .card-header {
+        .landing-page {
+            min-height: 100vh;
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
-        .photo-frame {
-            width: 80px;
-            height: 80px;
-            background: #151921;
-            border: 2px solid #333;
+        .landing-panel {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            background: linear-gradient(135deg, rgba(10, 12, 16, 0.95), rgba(22, 27, 34, 0.95));
+            border: 1px solid #1a1d23;
+            border-left: 4px solid var(--primary);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 96% 100%, 0% 100%);
+            padding: 50px;
+            box-shadow: 0 0 30px rgba(0, 162, 255, 0.08);
+            position: relative;
             overflow: hidden;
         }
 
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .landing-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 162, 255, 0.05), rgba(0, 162, 255, 0.02)),
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 4px
+                );
+            pointer-events: none;
         }
 
-        .hero-info h3 {
-            margin: 0;
-            font-family: 'Orbitron';
+        .landing-content,
+        .landing-image-area {
+            position: relative;
+            z-index: 1;
+        }
+
+        .landing-kicker {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            text-shadow: 0 0 10px rgba(0, 162, 255, 0.3);
+        }
+
+        .landing-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            line-height: 1.15;
             text-transform: uppercase;
             color: #fff;
+            margin-bottom: 20px;
         }
 
-        .hero-class {
-            font-size: 0.7rem;
-            color: #888;
-            letter-spacing: 2px;
+        .landing-title span {
+            color: var(--primary);
+            text-shadow: 0 0 14px rgba(0, 162, 255, 0.35);
         }
 
-        /* Barras estilizadas conforme pedido */
-        .stat-container { margin-bottom: 12px; }
-        .stat-label {
+        .landing-text {
+            max-width: 580px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+
+        .landing-actions {
             display: flex;
-            justify-content: space-between;
-            font-size: 0.65rem;
-            font-family: 'Orbitron';
-            margin-bottom: 5px;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 10px;
         }
 
-        .bar-bg {
-            width: 100%;
-            height: 10px;
-            background: #111;
-            border: 1px solid #222;
+        .landing-btn {
+            position: relative;
+            overflow: hidden;
         }
 
-        .fill-vida { background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
-        .fill-esforco { background: #00a2ff; box-shadow: 0 0 10px #00a2ff; }
-        .fill-defesa { background: #9d4edd; box-shadow: 0 0 10px #9d4edd; }
-
-        .btn-view {
-            display: block;
-            margin-top: 15px;
-            text-align: center;
-            background: #1a1d23;
-            color: #00a2ff;
-            text-decoration: none;
-            font-family: 'Orbitron';
-            font-size: 0.7rem;
-            padding: 8px;
-            border: 1px solid #00a2ff;
-            transition: 0.3s;
-        }
-
-        .btn-view:hover {
-            background: #00a2ff;
-            color: #000;
-        }
-
-        .lvl-badge {
+        .landing-btn::before {
+            content: "";
             position: absolute;
-            top: 10px; right: 10px;
-            background: #f1c40f;
-            color: #000;
-            padding: 2px 8px;
-            font-size: 0.6rem;
+            top: 0;
+            left: -120%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.25),
+                transparent
+            );
+            transition: 0.6s;
+        }
+
+        .landing-btn:hover::before {
+            left: 120%;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 12px 24px;
+            background: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
             font-weight: bold;
-            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            border: 1px solid var(--primary);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            transition: 0.3s all;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary);
+            transform: scale(1.05);
+        }
+
+        .landing-info-boxes {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .info-box {
+            min-width: 140px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            padding: 14px 16px;
+        }
+
+        .info-box strong {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .info-box span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .landing-image-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .landing-image-frame {
+            width: 100%;
+            max-width: 420px;
+            background: #0d1117;
+            border: 2px solid var(--primary);
+            padding: 12px;
+            box-shadow: 0 0 25px rgba(0, 162, 255, 0.18);
+            position: relative;
+        }
+
+        .landing-image-frame::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 162, 255, 0.7);
+            animation: scanline 3s linear infinite;
+        }
+
+        .landing-image-frame img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid #1f2933;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(520px); }
+        }
+
+        @media (max-width: 900px) {
+            .landing-panel {
+                grid-template-columns: 1fr;
+                padding: 35px 25px;
+            }
+
+            .landing-content {
+                text-align: center;
+            }
+
+            .landing-text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .landing-actions,
+            .landing-info-boxes {
+                justify-content: center;
+            }
+
+            .landing-title {
+                font-size: 2.2rem;
+            }
+
+            .landing-image-frame img {
+                height: 420px;
+            }
         }
     </style>
 </head>
 <body class="container">
 
-<header style="padding: 40px 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between;">
-    <h1 style="font-family: 'Orbitron'; color: #00a2ff;">ICONES DA HUMANIDADE <small style="color: #555; font-size: 0.5em;">a ultima linha de defesa planetária</small></h1>
-    <a href="{% url 'character_create' %}" class="btn">NOVO RECRUTA</a>
-</header>
+<section class="landing-page">
+    <div class="landing-panel">
+        <div class="landing-content">
+            <div class="landing-kicker">Protocolo de acesso autorizado</div>
 
-<main class="character-grid">
-    {% for character in characters %}
-    <div class="character-card">
-        <div class="lvl-badge">LVL {{ character.nivel }}</div>
+            <h1 class="landing-title">
+                Bem-vindo ao <span>RPG Icons of Humanity</span>
+            </h1>
 
-        <div class="card-header">
-            <div class="photo-frame">
-                {% if character.foto %}
-                    <img src="{{ character.foto.url }}" alt="Herói">
-                {% else %}
-                    <img src="{% static 'images/default_hero.png' %}" alt="Padrão">
-                {% endif %}
+            <p class="landing-text">
+                Acesse o banco de dados de heróis, consulte fichas completas, registre novos recrutas
+                e abra o livro oficial de regras do universo Icons of Humanity.
+            </p>
+
+            <div class="landing-actions">
+                <a href="{% url 'character_list' %}" class="btn landing-btn">COMEÇAR</a>
+                <a href="{% url 'livro_regras' %}" class="btn-outline landing-btn">LIVRO DE REGRAS</a>
             </div>
-            <div class="hero-info">
-                <div class="hero-class">{{ character.get_classe_display }}</div>
-                <h3>{{ character.nome_do_heroi }}</h3>
-                <div style="font-size: 0.6rem; color: #555;">ID: @{{ character.nome_do_jogador }}</div>
+
+            <div class="landing-info-boxes">
+                <div class="info-box">
+                    <strong>CLASSES</strong>
+                    <span>Titã, Velocista, Mentalista e Mutante</span>
+                </div>
+                <div class="info-box">
+                    <strong>CRIAÇÃO</strong>
+                    <span>Origens, perícias e habilidades</span>
+                </div>
+                <div class="info-box">
+                    <strong>SISTEMA</strong>
+                    <span>Combate e progressão do personagem</span>
+                </div>
             </div>
         </div>
 
-        <div class="stat-container">
-            <div class="stat-label" style="color: #ff4d4d;"><span>INTEGRIDADE</span> <span>{{ character.vida }}%</span></div>
-            <div class="bar-bg"><div class="bar-fill fill-vida" style="width: {{ character.vida }}%; height: 100%;"></div></div>
+        <div class="landing-image-area">
+            <div class="landing-image-frame">
+                <img src="/media/logo.png" alt="Imagem do RPG Icons of Humanity">
+            </div>
         </div>
-
-        <div class="stat-container">
-            <div class="stat-label" style="color: #00a2ff;"><span>ESFORÇO</span> <span>{{ character.esforco }}%</span></div>
-            <div class="bar-bg"><div class="bar-fill fill-esforco" style="width: {{ character.esforco }}%; height: 100%;"></div></div>
-        </div>
-
-        <div class="stat-container">
-            <div class="stat-label" style="color: #9d4edd;"><span>DEFESA / ESQUIVA</span> <span>{{ character.defesa_esquiva }} / 50</span></div>
-            <div class="bar-bg"><div class="bar-fill fill-defesa" style="width: {% widthratio character.defesa_esquiva 50 100 %}%; height: 100%;"></div></div>
-        </div>
-
-        <a href="{% url 'character_detail' character.pk %}" class="btn-view">ACESSAR ARQUIVO</a>
     </div>
-    {% endfor %}
-</main>
+</section>
 
 </body>
 </html>
